@@ -58,33 +58,56 @@ body {
     color:  rgb(0, 0, 0);
   }
   
-  /* Project Grid */
+ /* Project Grid */
+ .project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem; /* Reduce the gap */
+  padding: 1rem; /* Adjust padding */
+}
+
+
+/* Responsive Project Cards */
+.project-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: clamp(250px, 22vw, 320px); /* Adjust width */
+    height: auto;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .project-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 1.5rem;
-    padding: 2rem;
-    width: 100%; /* Ensure it spans the full width */
-    box-sizing: border-box; /* Include padding in width calculation */
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-  
+
   .project-card {
-    background-color: white;
-    border-radius: 15px; /* Rounded corners */
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    aspect-ratio: 1; /* Makes the cards square */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+      width: clamp(180px, 22vw, 300px);
   }
-  
-  .project-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 480px) {
+  .project-grid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
-  
+
+  .project-card {
+      width: clamp(150px, 24vw, 280px);
+  }
+}
   .project-card h3 {
     margin: 0 0 1rem;
     font-size: 1.5rem;
@@ -104,7 +127,7 @@ body {
   }
   
   .project-card .skills li {
-    background-color: #6200ea;
+    background-color: #000000;
     color: white;
     padding: 0.25rem 0.5rem;
     border-radius: 5px;
@@ -120,7 +143,7 @@ body {
     display: block;
     width: 100%;
     padding: 0.75rem;
-    background-color: #6200ea;
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 5px;
@@ -129,7 +152,7 @@ body {
   }
   
   .join-btn:hover {
-    background-color: #3700b3;
+    background-color: #000000;
   }
   
   /* Action Buttons */
@@ -182,24 +205,28 @@ body {
   /* Modal */
   .modal {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: fixed; /* Fixed to stay above footer */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-  }
-  
-  .modal-content {
+    z-index: 1002; /* Higher than footer */
+}
+
+.modal-content {
     background-color: white;
     padding: 2rem;
     border-radius: 10px;
     width: 90%;
     max-width: 500px;
     position: relative;
-  }
+    z-index: 1003; /* Ensures it stays on top */
+}
+
   
   .modal-content .close {
     position: absolute;
@@ -252,13 +279,18 @@ body {
   }
 
 
-  footer{
-    background-color: #000000ff;
-    position: relative;
+  footer {
+    background-color: #000;
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    min-height: 350px;
-    padding: 3rem 1rem;
-  }
+    min-height: 80px;
+    padding: 1rem;
+    text-align: center;
+    z-index: 999; /* Lower than modal */
+}
+
+
   .containers {
    max-width: 1140px;
    margin: 0 auto;
@@ -369,3 +401,59 @@ body {
    border-bottom-left-radius: 0;
    background-color: whitesmoke;
   }
+  /* Style for Search & Filter Section */
+
+  .filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 800px;
+  margin: 1.5rem auto;
+}
+
+/* Search Bar Styling */
+.search-bar {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+  border-color: #6200ea;
+  box-shadow: 0 0 8px rgba(98, 0, 234, 0.3);
+}
+
+/* Filter Dropdown Styling */
+.skill-filter {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+}
+
+.skill-filter:hover, .skill-filter:focus {
+  border-color: #000000;
+  box-shadow: 0 0 8px rgba(98, 0, 234, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .filters {
+      flex-direction: column;
+      gap: 0.75rem;
+  }
+}

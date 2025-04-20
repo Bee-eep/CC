@@ -230,3 +230,4 @@ function loadProjects() {
 window.addEventListener('load', () => {
   loadProjects();
 });
+
