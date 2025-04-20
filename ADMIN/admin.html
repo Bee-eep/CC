@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Admin</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="nav">
+    <div class="upper-nav">
+      <div class="left-sec">
+        <button class="hamburger">&#9776;</button>
+        <input type="text" placeholder="  Search...." name="search" class="search-box">
+        <button class="Search"><img src="Image/Search2.png" class="search-image"></button>
+      </div>
+      <div class="middle-sec">
+        <img src="Image/Logo10.jpg" class="Logo">
+      </div>
+      <div class="right-sec">
+        <img src="Image/Contact.png" class="contact">
+        <img src="Image/user2.png" class="User">
+      </div>
+    </div>
+    <div class="lower-nav" id="lowerNav">
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li class="nav-link services"><a href="../FEED/feed.html">Home</a></li>
+          <li class="nav-link services"><a href="#">Tech</a></li>
+          <li class="nav-link services"><a href="#">Socio-Culture</a></li>
+          <li class="nav-link services"><a href="#">Games</a></li>
+          <li class="nav-link services"><a href="#">Creativity</a></li>
+          <li class="nav-link services"><a href="#">Others</a></li>
+          <li class="nav-link services"><a href="#">Health</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="Lf-sec">
+      <img src="Image/Gdsc-B.png">
+    </div>
+    <div class="Rig-sec">
+      <div class="Cn">
+        <h2>GOOGLE DEVELOPER STUDENT CLUB-BU<i class="fa fa-pencil" aria-hidden="true"></i></h2>
+        <span>Tech Club</span>
+      </div>
+      <div class="Abt"><p>Email: XYZ@gmail.com</p></div>
+      <div class="Linkz">
+        <button class="Ad-pst">Add-Post<i class="fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="Mid-part" id="postContainer">
+      <!-- New posts will be dynamically added here -->
+    </div>
+    <div class="rg-sec">
+      <div class="upcoming-event">
+        <div class="Heads">
+          <b>Upcoming Events<i class="fa fa-plus"></i></b>
+        </div>
+        <div class="Evnts">
+          <div class="Left-part">
+            <h1>SEP<br><span>14</span></h1>
+          </div>
+          <div class="Right-part">
+            <h3>Gdsc Orin</h3>
+            <p>This is main event<br>Location: Venue Name</p>
+          </div>
+        </div>
+      </div>
+      <div class="Annc">
+        <div class="Ancmnt">Announcements<i class="fa fa-plus"></i></div>
+        <div class="Anc-Update">
+          <p>This is to inform that etc etc etc</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Posts -->
+  <div id="addPostModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create New Post</h2>
+      <form id="postForm">
+        <label for="postContent">Post Content:</label>
+        <textarea id="postContent" placeholder="Write your post content here..." required></textarea>
+        <label for="postImage">Upload Image:</label>
+        <input type="file" id="postImage" accept="image/*" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="containers">
+      <div class="row">
+        <div class="col" id="company">
+          <img src="Image/Endlog.jpg" alt="" class="logo">
+          <p>Campus Connect is a platform fostering student engagement through events, collaborations, and information sharing, enhancing the collegiate experience.</p>
+          <div class="social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col" id="services">
+          <h3>Clubs</h3>
+          <div class="links">
+            <a href="#">Tech</a>
+            <a href="#">Creativity</a>
+            <a href="#">Health</a>
+            <a href="#">Socio-Culture</a>
+          </div>
+        </div>
+        <div class="col" id="useful-links">
+          <h3>Links</h3>
+          <div class="links">
+            <a href="#">About</a>
+            <a href="#">Help</a>
+          </div>
+        </div>
+        <div class="col" id="contact">
+          <h3>Contact</h3>
+          <div class="contact-details">
+            <i class="fa fa-location"></i>
+            <p>Bennett University<br>Greater Noida, India</p>
+          </div>
+          <div class="contact-details">
+            <i class="fa fa-phone"></i>
+            <p>+91-92993883777</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form">
+          <form action="">
+            <input type="text" placeholder="Email here...">
+            <button><i class="fa fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>

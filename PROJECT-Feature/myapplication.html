@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Applications</title>
+  <link rel="stylesheet" href="myapplication.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="Logo10.jpg" alt=""></a>
+      <ul class="nav-links">
+        <li><a href="../FEED/feed.html">Home</a></li>
+        <li><a href="index.html">Projects</a></li>
+        <li><a href="myapplication.html">My Applications</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="dark-mode-toggle">
+        <label for="dark-mode">Dark Mode</label>
+        <input type="checkbox" id="dark-mode">
+      </div>
+    </div>
+  </nav>
+
+  <!-- My Applications Grid -->
+  <section class="project-grid" id="my-applications-grid">
+    <!-- Projects added dynamically will appear here -->
+  </section>
+
+  <!-- Add Project Button -->
+  <div class="add-project-button">
+    <button id="add-project-btn">+</button>
+  </div>
+
+  <!-- Add Project Modal -->
+  <div class="modal" id="add-project-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Add New Project</h2>
+      <form id="add-project-form">
+        <input type="text" placeholder="Project Name" id="project-name" required>
+        <textarea placeholder="Project Description" id="project-description" required></textarea>
+        <input type="text" placeholder="Partner Name" id="project-partner" required>
+        <input type="text" placeholder="Skills (comma separated)" id="project-skills" required>
+        <input type="number" placeholder="Team Size" id="team-size" required>
+        <button type="submit">Add Project</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Project Modal -->
+  <div class="modal" id="edit-project-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Project</h2>
+      <form id="edit-project-form">
+        <input type="text" placeholder="Project Name" id="edit-project-name" required>
+        <textarea placeholder="Project Description" id="edit-project-description" required></textarea>
+        <input type="text" placeholder="Partner Name" id="edit-project-partner" required>
+        <input type="text" placeholder="Skills (comma separated)" id="edit-project-skills" required>
+        <input type="number" placeholder="Team Size" id="edit-team-size" required>
+        <button type="submit">Update Project</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="containers">
+      <div class="row">
+        <div class="col" id="company">
+          <img src="Image/Endlog.jpg" alt="" class="logo">
+          <p>
+            Campus Connect is a platform fostering student engagement through events, collaborations, and information sharing, enhancing the collegiate experience.
+          </p>
+          <div class="social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col" id="services">
+          <h3>Clubs</h3>
+          <div class="links">
+            <a href="#">Tech</a>
+            <a href="#">Creativity</a>
+            <a href="#">Health</a>
+            <a href="#">Socio-Culture</a>
+          </div>
+        </div>
+        <div class="col" id="useful-links">
+          <h3>Links</h3>
+          <div class="links">
+            <a href="#">About</a>
+            <a href="#">Help</a>
+          </div>
+        </div>
+        <div class="col" id="contact">
+          <h3>Contact</h3>
+          <div class="contact-details">
+            <i class="fa fa-location"></i>
+            <p>Bennett University <br> Greater Noida, India</p>
+          </div>
+          <div class="contact-details">
+            <i class="fa fa-phone"></i>
+            <p>+91-92993883777</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form">
+          <form action="">
+            <input type="text" placeholder="Email here...">
+            <button><i class="fa fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

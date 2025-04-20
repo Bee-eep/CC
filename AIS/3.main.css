@@ -1,0 +1,104 @@
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Galano Grotesque Alt', sans-serif;
+  background-color:rgba(236, 234, 234, 1);
+
+
+  
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* MAIN CONTENT SECTION  */
+.sec {
+  position:flex;
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  
+
+}
+
+.Mid-part{
+  flex-basis:70%;
+  display:flex;
+  flex-direction:column;
+
+
+
+}
+
+
+
+@media only screen and (max-width: 800px) {
+  .sec {
+      flex-direction:column-reverse; /* Change to a column layout on smaller screens */
+  }
+
+  .Mid-part{
+      width: 100%; /* Make both sections take full width on smaller screens */
+      float: none; /* Remove float on smaller screens */
+  }
+}
+
+
+
+
+/* RIGHT SECTION OF CONTENT SEC */
+.rg-sec {
+  flex-basis:30%;
+  align-self:flex-start;
+   
+}
+
+
+
+/*LOAD MORE BUTTON PROPERTY */
+
+
+#loadMoreBtn {
+  
+  width: 150px;
+  margin-top: 20px;
+  margin-bottom:20px;
+  padding: 10px;
+  background-color:black;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight:550;
+  font-size: 15px;
+}
+
+.Ldmore{
+  display: flex;
+  margin-left:30%;
+  width: 70%;
+  height:80px;
+}
+#loadMoreBtn:hover{
+  transform: scale(1.08);
+  filter:grayscale(25);
+  cursor: pointer;
+ }
+
+
+
+
+
+
+
+
+
+
+

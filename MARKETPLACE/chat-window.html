@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - Campus Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="chat.html" class="back-btn">&larr; Back to Chats</a>
+      <h2 id="chat-window-title">Chat</h2>
+    </div>
+  </nav>
+
+  <div class="container chat-window">
+    <div class="chat-container" id="chat-container">
+      <!-- Messages will appear here -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="message-input" placeholder="Type your message...">
+      <button id="send-message">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let currentChatId = localStorage.getItem('currentChat');
+    
+    function loadChat() {
+      const chats = JSON.parse(localStorage.getItem('chats')) || {};
+      const currentChat = chats[currentChatId];
+      
+      if (currentChat) {
+        document.getElementById('chat-window-title').textContent = `Chat: ${currentChat.product}`;
+        renderMessages();
+      }
+    }
+    
+    function renderMessages() {
+      const chatContainer = document.getElementById('chat-container');
+      chatContainer.innerHTML = '';
+      
+      const chats = JSON.parse(localStorage.getItem('chats')) || {};
+      const currentChat = chats[currentChatId];
+      
+      if (currentChat && currentChat.messages) {
+        currentChat.messages.forEach(msg => {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = `message ${msg.sender}`;
+          messageDiv.innerHTML = `
+            <span class="message-text">${msg.text}</span>
+            <span class="message-time">${msg.time}</span>
+          `;
+          chatContainer.appendChild(messageDiv);
+        });
+      }
+      
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    document.getElementById('send-message').addEventListener('click', sendMessage);
+    document.getElementById('message-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+    
+    function sendMessage() {
+      const input = document.getElementById('message-input');
+      const messageText = input.value.trim();
+      
+      if (messageText && currentChatId) {
+        const chats = JSON.parse(localStorage.getItem('chats')) || {};
+        const currentChat = chats[currentChatId] || { messages: [] };
+        
+        currentChat.messages.push({
+          text: messageText,
+          sender: 'buyer',
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        
+        chats[currentChatId] = currentChat;
+        localStorage.setItem('chats', JSON.stringify(chats));
+        
+        input.value = '';
+        renderMessages();
+      }
+    }
+    
+    // Load chat when page opens
+    window.addEventListener('DOMContentLoaded', loadChat);
+  </script>
+</body>
+</html>

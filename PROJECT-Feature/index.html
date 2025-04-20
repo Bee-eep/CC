@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Collaboration</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo"><img src="Logo10.jpg" alt=""></a>
+      <ul class="nav-links">
+        <li><a href="../FEED/feed.html">Home</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="myapplication.html">My Projects</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+      <div class="dark-mode-toggle">
+        <label for="dark-mode">Dark Mode</label>
+        <input type="checkbox" id="dark-mode">
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search & Filters -->
+  <section class="filters">
+    <div class="container">
+      <input type="text" placeholder="Search projects..." class="search-bar">
+      <select class="skill-filter">
+        <option value="">Filter by Skill</option>
+        <option value="React">React</option>
+        <option value="Node.js">Node.js</option>
+        <option value="Python">Python</option>
+        <option value="UI/UX">UI/UX</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Project Grid -->
+  <section class="project-grid">
+    <!-- Example Project Card -->
+    
+    <!-- Add more project cards here -->
+  </section>
+
+  <!-- Join Project Popup -->
+  <div class="modal" id="join-project-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Join Project</h2>
+      <form id="join-project-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <input type="url" placeholder="GitHub URL" required>
+        <input type="url" placeholder="LinkedIn URL" required>
+        <textarea placeholder="What do you bring to the table? (150 words max)" maxlength="150" required></textarea>
+        <button type="submit">Send Request</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Thank You Popup -->
+  <div class="modal" id="thank-you-modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Thank You!</h2>
+      <p>Your request has been submitted. We will contact you upon selection.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="containers">
+      <div class="row">
+        <div class="col" id="company">
+          <img src="Image/Endlog.jpg" alt="" class="logo">
+          <p>
+            Campus Connect is a platform fostering student engagement through events, collaborations, and information sharing, enhancing the collegiate experience.
+          </p>
+          <div class="social">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="col" id="services">
+          <h3>Clubs</h3>
+          <div class="links">
+            <a href="#">Tech</a>
+            <a href="#">Creativity</a>
+            <a href="#">Health</a>
+            <a href="#">Socio-Culture</a>
+          </div>
+        </div>
+        <div class="col" id="useful-links">
+          <h3>Links</h3>
+          <div class="links">
+            <a href="#">About</a>
+            <a href="#">Help</a>
+          </div>
+        </div>
+        <div class="col" id="contact">
+          <h3>Contact</h3>
+          <div class="contact-details">
+            <i class="fa fa-location"></i>
+            <p>Bennett University <br> Greater Noida, India</p>
+          </div>
+          <div class="contact-details">
+            <i class="fa fa-phone"></i>
+            <p>+91-92993883777</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form">
+          <form action="">
+            <input type="text" placeholder="Email here...">
+            <button><i class="fa fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

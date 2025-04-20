@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Chats - Campus Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="Logo10.jpg" alt="Marketplace Logo"></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Marketplace</a></li>
+        <li><a href="myproducts.html">My Products</a></li>
+        <li><a href="chat.html" class="active">My Chats</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>My Chats</h1>
+    <div id="chat-list">
+      <!-- Chats will be listed here -->
+    </div>
+  </div>
+
+  <script>
+    // Load user's chats
+    function loadChats() {
+      const chats = JSON.parse(localStorage.getItem('chats')) || {};
+      const chatList = document.getElementById('chat-list');
+      
+      chatList.innerHTML = '';
+      
+      Object.entries(chats).forEach(([chatId, chatData]) => {
+        const chatItem = document.createElement('div');
+        chatItem.className = 'chat-item';
+        chatItem.innerHTML = `
+          <h3>${chatData.product}</h3>
+          <p>Last message: ${chatData.messages.length ? chatData.messages[chatData.messages.length-1].text : 'No messages yet'}</p>
+          <button class="open-chat" data-chatid="${chatId}">Open Chat</button>
+        `;
+        
+        chatItem.querySelector('.open-chat').addEventListener('click', () => {
+          localStorage.setItem('currentChat', chatId);
+          window.location.href = 'chat-window.html';
+        });
+        
+        chatList.appendChild(chatItem);
+      });
+    }
+    
+    // Load chats when page loads
+    window.addEventListener('DOMContentLoaded', loadChats);
+  </script>
+</body>
+</html>

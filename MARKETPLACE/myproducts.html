@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Products - Campus Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo"><img src="Logo10.jpg" alt="Marketplace Logo"></a>
+      <ul class="nav-links">
+        <li><a href="../FEED/feed.html">Home</a></li>
+        <li><a href="index.html">Marketplace</a></li>
+        <li><a href="myproducts.html" class="active">My Products</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="dark-mode-toggle">
+        <label for="dark-mode">Dark Mode</label>
+        <input type="checkbox" id="dark-mode">
+      </div>
+    </div>
+  </nav>
+
+  <!-- My Products Section -->
+  <section class="container">
+    <h1>My Products</h1>
+    <div class="product-grid" id="my-products-grid">
+      <!-- Products will load here -->
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    // Dark Mode Toggle (same as main page)
+    const darkModeToggle = document.getElementById('dark-mode');
+    const body = document.body;
+    
+    darkModeToggle.addEventListener('change', () => {
+      body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+    });
+    
+    if (localStorage.getItem('darkMode') === 'true') {
+      body.classList.add('dark-mode');
+      darkModeToggle.checked = true;
+    }
+
+    // Load user's products
+    function loadMyProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const myProductsGrid = document.getElementById('my-products-grid');
+      
+      myProductsGrid.innerHTML = '';
+      
+      products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.dataset.id = product.id;
+        
+        productCard.innerHTML = `
+          <div class="product-image" style="background-image: url('${product.image}')"></div>
+          <div class="product-details">
+            <h3>${product.name}</h3>
+            <p class="product-description">${product.description}</p>
+            <div class="product-footer">
+              <span class="price">$${product.price}</span>
+              <span class="category">${product.category}</span>
+            </div>
+            <div class="product-actions">
+              <button class="edit-btn" data-id="${product.id}">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="delete-btn" data-id="${product.id}">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          </div>
+        `;
+        
+        myProductsGrid.appendChild(productCard);
+      });
+      
+      // Add event listeners to buttons
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const productId = parseInt(e.target.closest('button').dataset.id);
+          deleteProduct(productId);
+        });
+      });
+      
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const productId = parseInt(e.target.closest('button').dataset.id);
+          editProduct(productId);
+        });
+      });
+    }
+    
+    function deleteProduct(productId) {
+      let products = JSON.parse(localStorage.getItem('products')) || [];
+      products = products.filter(product => product.id !== productId);
+      localStorage.setItem('products', JSON.stringify(products));
+      loadMyProducts();
+    }
+    
+    function editProduct(productId) {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const product = products.find(p => p.id === productId);
+      
+      if (product) {
+        // Open edit modal with product data
+        alert(`Editing product: ${product.name}\nThis would open an edit form in a real implementation.`);
+        // In a full implementation, you would open a modal similar to the add product modal
+        // but pre-filled with the product's data and with save functionality
+      }
+    }
+    
+    // Load products when page loads
+    window.addEventListener('DOMContentLoaded', loadMyProducts);
+  </script>
+</body>
+</html>
