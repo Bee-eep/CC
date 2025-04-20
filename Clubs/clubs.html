@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Clubs Showcase</title>
+    <link rel="stylesheet" href="clubs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../common/navbar.css">
+    <link rel="stylesheet" href="../FEED/feed.css">
+
+</head>
+<body>
+
+    <div class="nav">
+        <div class="upper-nav">
+            <div class="left-sec">
+                <button class="hamburger">&#9776;</button>
+                
+                
+                
+            </div>
+            <div class="middle-sec">
+                <img src="Image\Logo10.jpg" class="Logo">
+                
+            </div>
+            <div class="right-sec">
+                <img src="Image/Contact.png" class="contact">
+                <a href="../LOGIN/login.html"><img src="Image/user2.png" class="User"></a>
+        
+                
+            </div>
+        </div> 
+        <div id="navbar-container"></div>
+        
+          
+    </div>
+    <header>
+        <h1>College Clubs</h1>
+        <p>Explore all the student organizations at our college</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search clubs...">
+        <button id="searchButton"><i class="fas fa-search"></i></button>
+    </div>
+
+    <div class="clubs-container" id="clubsContainer">
+        <!-- Clubs will be dynamically loaded here -->
+    </div>
+
+    <footer>
+        <p>© 2023 College Name. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        // Inject navbar from common/navbar.html
+        fetch("/common/navbar.html")
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById("navbar-container").innerHTML = data;
+          });
+      </script>
+
+    <script src="clubs.js"></script>
+</body>
+</html>

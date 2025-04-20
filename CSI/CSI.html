@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="8.Footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="/Image/GalanoGrotesqueAltRegular.otf" rel="stylesheet">
+    <link href="../common/navbar.css" rel="stylesheet">
   </head>
 
 <body>
@@ -37,68 +38,9 @@
                 
             </div>
         </div> 
-        <div class="lower-nav" id="lowerNav">
-            
+        
+        <div id="navbar-container"></div>
 
-
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li class="nav-link services">
-                        <a href="../FEED/feed.html">Home</a>
-                        
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#" class="hello">Tech
-                        </a>
-                        <ul class="drop-down">
-                            <li>Gdsc-Bu</li>
-                            <li>CSI-Bu</li>
-                            <li>AIS</li>
-                        </ul>
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#">Socio-Culture</a>
-                        <ul class="drop-down">
-                            <li>Verve</li>
-                            <li>Advaita</li>
-                            <li>Ansh</li>
-                            <li>Rivaaz</li>
-                        </ul>
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#">Games</a>
-                        <ul class="drop-down">
-                            <li>BU Gamers</li>
-                
-                        </ul>
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#">Creativity</a>
-                        <ul class="drop-down">
-                            <li>Silhouette</li>
-                            <li>Pulse</li>
-                            <li>Service 3</li>
-                        </ul>
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#">Others</a>
-                        <ul class="drop-down">
-                            <li>Sunset Movie</li>
-                            <li>Service 2</li>
-                            <li>Service 3</li>
-                        </ul>
-                    </li>
-                    <li class="nav-link services">
-                        <a href="#">Health</a>
-                        <ul class="drop-down">
-                            <li>Zenart</li>
-                            <li>Girls Health Club</li>
-                            <li>Service 3</li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
         
           
     </div>
@@ -288,7 +230,14 @@
         </div>
      </footer>
     
-    
+     <script>
+        // Inject navbar
+        fetch("/common/navbar.html")
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById("navbar-container").innerHTML = data;
+          });
+      </script>
   <script src="2.Java.js"></script> 
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </body>
