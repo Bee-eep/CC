@@ -24,7 +24,17 @@ body {
   top: 0;
   z-index: 1000;
 }
+.no-products {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.2rem;
+}
 
+.dark-mode .no-products {
+  color: #aaa;
+}
 .navbar .container {
   display: flex;
   justify-content: space-between;

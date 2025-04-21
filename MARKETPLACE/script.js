@@ -9,13 +9,15 @@ const searchBar = document.querySelector('.search-bar');
 const categoryFilter = document.querySelector('.category-filter');
 const closeButtons = document.querySelectorAll('.close');
 
+// Track my products
+let myProductsIds = JSON.parse(localStorage.getItem('myProductsIds')) || [];
+
 // Dark Mode Toggle
 darkModeToggle.addEventListener('change', () => {
   body.classList.toggle('dark-mode');
   localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
 });
 
-// Check for saved dark mode preference
 if (localStorage.getItem('darkMode') === 'true') {
   body.classList.add('dark-mode');
   darkModeToggle.checked = true;
@@ -32,11 +34,9 @@ function closeModal(modal) {
   document.body.style.overflow = 'auto';
 }
 
-// Close modal when clicking on X or outside
 closeButtons.forEach(button => {
   button.addEventListener('click', () => {
-    const modal = button.closest('.modal');
-    closeModal(modal);
+    closeModal(button.closest('.modal'));
   });
 });
 
@@ -46,16 +46,21 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Add Product Functionality
-addProductBtn.addEventListener('click', () => {
-  openModal(addProductModal);
-});
+// Product Functions
+function saveProduct(product) {
+  const products = JSON.parse(localStorage.getItem('products')) || [];
+  products.push(product);
+  localStorage.setItem('products', JSON.stringify(products));
+}
+
+addProductBtn.addEventListener('click', () => openModal(addProductModal));
 
 addProductForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
+  const productId = Date.now();
   const product = {
-    id: Date.now(),
+    id: productId,
     name: document.getElementById('product-name').value,
     description: document.getElementById('product-description').value,
     price: parseFloat(document.getElementById('product-price').value).toFixed(2),
@@ -65,18 +70,15 @@ addProductForm.addEventListener('submit', (e) => {
     date: new Date().toLocaleDateString()
   };
 
+  // Add to my products
+  myProductsIds.push(productId);
+  localStorage.setItem('myProductsIds', JSON.stringify(myProductsIds));
+
   saveProduct(product);
   addProductToGrid(product);
   addProductForm.reset();
   closeModal(addProductModal);
 });
-
-// Product Functions
-function saveProduct(product) {
-  const products = JSON.parse(localStorage.getItem('products')) || [];
-  products.push(product);
-  localStorage.setItem('products', JSON.stringify(products));
-}
 
 function addProductToGrid(product) {
   const productCard = document.createElement('div');
@@ -90,11 +92,18 @@ function addProductToGrid(product) {
       <h3>${product.name}</h3>
       <p class="product-description">${product.description}</p>
       <div class="product-footer">
-        <span class="price">$${product.price}</span>
+        <span class="price">₹${product.price}</span>
         <span class="category">${product.category}</span>
       </div>
+      <button class="buy-now-btn" data-seller="${product.contact}" data-product="${product.name}">
+        Buy Now
+      </button>
     </div>
   `;
+  
+  productCard.querySelector('.buy-now-btn').addEventListener('click', (e) => {
+    openChat(e.target.dataset.seller, e.target.dataset.product);
+  });
   
   productGrid.appendChild(productCard);
 }
@@ -105,7 +114,7 @@ function loadProducts() {
   products.forEach(product => addProductToGrid(product));
 }
 
-// Search and Filter Functionality
+// Search and Filter
 function filterProducts() {
   const searchTerm = searchBar.value.toLowerCase();
   const selectedCategory = categoryFilter.value;
@@ -115,125 +124,49 @@ function filterProducts() {
     const description = card.querySelector('.product-description').textContent.toLowerCase();
     const category = card.dataset.category;
     
-    const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
-    const matchesCategory = !selectedCategory || category === selectedCategory;
-    
-    card.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
+    card.style.display = (name.includes(searchTerm) || description.includes(searchTerm)) && 
+                         (!selectedCategory || category === selectedCategory) 
+                         ? 'block' : 'none';
   });
 }
 
 searchBar.addEventListener('input', filterProducts);
 categoryFilter.addEventListener('change', filterProducts);
 
+// Initialize sample data
+function initializeSampleData() {
+  if (localStorage.getItem('products') === null) {
+    const sampleProducts = [
+      {
+        id: 1,
+        name: "Used Calculus Textbook",
+        description: "Calculus textbook from last semester, in good condition.",
+        price: "1200.00",
+        image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        category: "Books",
+        contact: "seller1@example.com",
+        date: new Date().toLocaleDateString()
+      },
+      {
+        id: 2,
+        name: "Wireless Headphones",
+        description: "Barely used wireless headphones with noise cancellation.",
+        price: "2500.00",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        category: "Electronics",
+        contact: "seller2@example.com",
+        date: new Date().toLocaleDateString()
+      }
+    ];
+    
+    localStorage.setItem('products', JSON.stringify(sampleProducts));
+    localStorage.setItem('myProductsIds', JSON.stringify([1])); // Mark textbook as mine
+  }
+}
+
 // Initialize
 window.addEventListener('DOMContentLoaded', () => {
+  initializeSampleData();
+  myProductsIds = JSON.parse(localStorage.getItem('myProductsIds')) || [];
   loadProducts();
 });
-// Add these new functions to your existing script.js
-
-// Chat functionality
-let currentChatId = null;
-
-function openChat(sellerId, productName) {
-  currentChatId = `chat_${sellerId}_${Date.now()}`;
-  document.getElementById('chat-title').textContent = `Chat about: ${productName}`;
-  
-  // Load existing messages or create new chat
-  const chats = JSON.parse(localStorage.getItem('chats')) || {};
-  if (!chats[currentChatId]) {
-    chats[currentChatId] = {
-      product: productName,
-      messages: []
-    };
-    localStorage.setItem('chats', JSON.stringify(chats));
-  }
-  
-  renderMessages();
-  openModal(document.getElementById('chat-modal'));
-}
-
-function renderMessages() {
-  const chatContainer = document.getElementById('chat-container');
-  chatContainer.innerHTML = '';
-  
-  const chats = JSON.parse(localStorage.getItem('chats')) || {};
-  const currentChat = chats[currentChatId];
-  
-  if (currentChat && currentChat.messages) {
-    currentChat.messages.forEach(msg => {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${msg.sender}`;
-      messageDiv.innerHTML = `
-        <span class="message-text">${msg.text}</span>
-        <span class="message-time">${msg.time}</span>
-      `;
-      chatContainer.appendChild(messageDiv);
-    });
-  }
-  
-  // Scroll to bottom
-  chatContainer.scrollTop = chatContainer.scrollHeight;
-}
-
-// Send message functionality
-document.getElementById('send-message').addEventListener('click', () => {
-  const input = document.getElementById('message-input');
-  const messageText = input.value.trim();
-  
-  if (messageText && currentChatId) {
-    const chats = JSON.parse(localStorage.getItem('chats')) || {};
-    const currentChat = chats[currentChatId] || { messages: [] };
-    
-    currentChat.messages.push({
-      text: messageText,
-      sender: 'buyer',
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    });
-    
-    chats[currentChatId] = currentChat;
-    localStorage.setItem('chats', JSON.stringify(chats));
-    
-    input.value = '';
-    renderMessages();
-  }
-});
-
-// Update the addProductToGrid function to include Buy Now button
-function addProductToGrid(product) {
-  const productCard = document.createElement('div');
-  productCard.className = 'product-card';
-  productCard.dataset.id = product.id;
-  productCard.dataset.category = product.category;
-  
-  productCard.innerHTML = `
-    <div class="product-image" style="background-image: url('${product.image}')"></div>
-    <div class="product-details">
-      <h3>${product.name}</h3>
-      <p class="product-description">${product.description}</p>
-      <div class="product-footer">
-        <span class="price">$${product.price}</span>
-        <span class="category">${product.category}</span>
-      </div>
-      <button class="buy-now-btn" data-seller="${product.contact}" data-product="${product.name}">
-        Buy Now
-      </button>
-    </div>
-  `;
-  
-  // Add event listener to the Buy Now button
-  productCard.querySelector('.buy-now-btn').addEventListener('click', (e) => {
-    const sellerId = e.target.dataset.seller;
-    const productName = e.target.dataset.product;
-    openChat(sellerId, productName);
-  });
-  
-  productGrid.appendChild(productCard);
-}
-
-// Update the saveProduct function to include seller contact
-function saveProduct(product) {
-  const products = JSON.parse(localStorage.getItem('products')) || [];
-  product.seller = "currentUser"; // In a real app, this would be the logged-in user's ID
-  products.push(product);
-  localStorage.setItem('products', JSON.stringify(products));
-}

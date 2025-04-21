@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="container">
       <a href="index.html" class="logo"><img src="Logo10.jpg" alt="Marketplace Logo"></a>
@@ -25,7 +24,6 @@
     </div>
   </nav>
 
-  <!-- My Products Section -->
   <section class="container">
     <h1>My Products</h1>
     <div class="product-grid" id="my-products-grid">
@@ -33,9 +31,8 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
   <script>
-    // Dark Mode Toggle (same as main page)
+    // Dark Mode
     const darkModeToggle = document.getElementById('dark-mode');
     const body = document.body;
     
@@ -49,14 +46,22 @@
       darkModeToggle.checked = true;
     }
 
-    // Load user's products
+    // Load My Products
     function loadMyProducts() {
       const products = JSON.parse(localStorage.getItem('products')) || [];
+      const myProductsIds = JSON.parse(localStorage.getItem('myProductsIds')) || [];
       const myProductsGrid = document.getElementById('my-products-grid');
       
       myProductsGrid.innerHTML = '';
       
-      products.forEach(product => {
+      const myProducts = products.filter(product => myProductsIds.includes(product.id));
+      
+      if (myProducts.length === 0) {
+        myProductsGrid.innerHTML = '<p class="no-products">You haven\'t added any products yet.</p>';
+        return;
+      }
+      
+      myProducts.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
         productCard.dataset.id = product.id;
@@ -84,42 +89,25 @@
         myProductsGrid.appendChild(productCard);
       });
       
-      // Add event listeners to buttons
+      // Add event listeners
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const productId = parseInt(e.target.closest('button').dataset.id);
           deleteProduct(productId);
         });
       });
-      
-      document.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const productId = parseInt(e.target.closest('button').dataset.id);
-          editProduct(productId);
-        });
-      });
     }
     
     function deleteProduct(productId) {
-      let products = JSON.parse(localStorage.getItem('products')) || [];
-      products = products.filter(product => product.id !== productId);
-      localStorage.setItem('products', JSON.stringify(products));
+      // Remove from my products
+      let myProductsIds = JSON.parse(localStorage.getItem('myProductsIds')) || [];
+      myProductsIds = myProductsIds.filter(id => id !== productId);
+      localStorage.setItem('myProductsIds', JSON.stringify(myProductsIds));
+      
+      // Refresh display
       loadMyProducts();
     }
     
-    function editProduct(productId) {
-      const products = JSON.parse(localStorage.getItem('products')) || [];
-      const product = products.find(p => p.id === productId);
-      
-      if (product) {
-        // Open edit modal with product data
-        alert(`Editing product: ${product.name}\nThis would open an edit form in a real implementation.`);
-        // In a full implementation, you would open a modal similar to the add product modal
-        // but pre-filled with the product's data and with save functionality
-      }
-    }
-    
-    // Load products when page loads
     window.addEventListener('DOMContentLoaded', loadMyProducts);
   </script>
 </body>
