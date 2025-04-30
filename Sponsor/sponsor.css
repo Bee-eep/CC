@@ -1,0 +1,149 @@
+/* sponsors.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Galano Grotesque Alt', sans-serif;
+    background-color: rgba(236, 234, 234, 1);
+  }
+  
+  .sponsors-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+  }
+  
+  .sponsors-container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .sponsors-container .subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+  }
+  
+  .tier {
+    margin-bottom: 40px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tier h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.8rem;
+  }
+  
+  .tier.gold h2 {
+    color: #d4af37;
+  }
+  
+  .tier.silver h2 {
+    color: #c0c0c0;
+  }
+  
+  .tier.bronze h2 {
+    color: #cd7f32;
+  }
+  
+  .sponsors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+  }
+  
+  .sponsor-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    height: 100%;
+  }
+  
+  .sponsor-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .sponsor-logo {
+    width: 180px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 15px;
+  }
+  
+  .sponsor-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .visit-website {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    margin-top: auto;
+  }
+  
+  .visit-website:hover {
+    background-color: #333;
+  }
+  
+  /* Tier specific styles */
+  .tier.gold .sponsor-card {
+    border: 2px solid #d4af37;
+  }
+  
+  .tier.silver .sponsor-card {
+    border: 2px solid #c0c0c0;
+  }
+  
+  .tier.bronze .sponsor-card {
+    border: 2px solid #cd7f32;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .sponsors-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .sponsor-logo {
+      width: 150px;
+      height: 100px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sponsors-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .sponsor-card {
+      padding: 15px;
+    }
+  }

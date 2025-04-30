@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <title>Admin</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -34,6 +34,7 @@
           <li class="nav-link services"><a href="#">Creativity</a></li>
           <li class="nav-link services"><a href="#">Others</a></li>
           <li class="nav-link services"><a href="#">Health</a></li>
+          <li class="nav-link services"><a href="sponsors.html">Sponsors</a></li>
         </ul>
       </nav>
     </div>
@@ -49,8 +50,19 @@
         <span>Tech Club</span>
       </div>
       <div class="Abt"><p>Email: XYZ@gmail.com</p></div>
-      <div class="Linkz">
-        <button class="Ad-pst">Add-Post<i class="fa fa-plus"></i></button>
+      <div class="admin-actions">
+        <button class="action-btn post-btn" id="addPostBtn">
+          <i class="fas fa-plus-circle"></i>
+          <span>Add Post</span>
+        </button>
+        <button class="action-btn sponsor-btn" id="addSponsorBtn">
+          <i class="fas fa-handshake"></i>
+          <span>Add Sponsor</span>
+        </button>
+        <a href="../Sponsor/sponsor.html" class="action-btn view-btn">
+          <i class="fas fa-eye"></i>
+          <span>View Sponsors</span>
+        </a>
       </div>
     </div>
   </div>
@@ -80,6 +92,17 @@
           <p>This is to inform that etc etc etc</p>
         </div>
       </div>
+      <div class="sponsors-preview">
+        <div class="Heads">
+          <b>Recent Sponsors <i class="fas fa-handshake"></i></b>
+        </div>
+        <div class="sponsors-grid" id="sponsorsPreview">
+          <!-- Sponsors will be loaded here -->
+        </div>
+        <div class="view-all">
+          <button onclick="window.location.href='sponsor.html'">View All Sponsors</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -94,6 +117,33 @@
         <label for="postImage">Upload Image:</label>
         <input type="file" id="postImage" accept="image/*" required>
         <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Sponsors -->
+  <div id="addSponsorModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Add New Sponsor</h2>
+      <form id="sponsorForm">
+        <label for="sponsorName">Sponsor Name:</label>
+        <input type="text" id="sponsorName" placeholder="Enter sponsor name" required>
+        
+        <label for="sponsorLogo">Sponsor Logo:</label>
+        <input type="file" id="sponsorLogo" accept="image/*" required>
+        
+        <label for="sponsorLink">Website Link (optional):</label>
+        <input type="url" id="sponsorLink" placeholder="https://example.com">
+        
+        <label for="sponsorTier">Tier:</label>
+        <select id="sponsorTier" required>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+        
+        <button type="submit">Add Sponsor</button>
       </form>
     </div>
   </div>
@@ -126,6 +176,7 @@
           <div class="links">
             <a href="#">About</a>
             <a href="#">Help</a>
+            <a href="sponsors.html">Sponsors</a>
           </div>
         </div>
         <div class="col" id="contact">

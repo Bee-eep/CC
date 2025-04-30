@@ -1,8 +1,13 @@
 // Modal functionality
 const modal = document.getElementById("addPostModal");
-const addPostBtn = document.querySelector(".Ad-pst");
+const addPostBtn = document.getElementById("addPostBtn"); // Changed to use ID
 const closeBtn = document.querySelector(".close");
 const postForm = document.getElementById("postForm");
+
+// Open modal - This remains the same
+addPostBtn.addEventListener("click", () => {
+  modal.style.display = "block";
+});
 
 // Open modal
 addPostBtn.addEventListener("click", () => {
@@ -240,3 +245,90 @@ function loadMorePosts() {
 }
 
 showPosts(0, visiblePosts);
+
+
+
+
+// In your admin.js file - add these updates:
+
+// Initialize elements
+// const addPostBtn = document.getElementById("addPostBtn");
+const addSponsorBtn = document.getElementById("addSponsorBtn");
+const sponsorsPreview = document.getElementById("sponsorsPreview");
+
+// Load sponsors preview on page load
+window.addEventListener("load", () => {
+  loadSponsorsPreview();
+});
+
+// Sponsor Preview Functionality
+function loadSponsorsPreview() {
+  const sponsors = JSON.parse(localStorage.getItem("sponsors")) || [];
+  sponsorsPreview.innerHTML = '';
+  
+  // Show only the 3 most recent sponsors
+  const recentSponsors = sponsors.slice(0, 3);
+  
+  if (recentSponsors.length === 0) {
+    sponsorsPreview.innerHTML = '<p class="no-sponsors">No sponsors added yet</p>';
+    return;
+  }
+
+  recentSponsors.forEach(sponsor => {
+    const sponsorCard = document.createElement("div");
+    sponsorCard.className = "sponsor-preview-card";
+    
+    sponsorCard.innerHTML = `
+      <img src="${sponsor.logo}" alt="${sponsor.name}" class="sponsor-preview-logo">
+      <div class="sponsor-preview-info">
+        <span class="sponsor-tier ${sponsor.tier}">${sponsor.tier}</span>
+        <h4>${sponsor.name}</h4>
+      </div>
+    `;
+    
+    sponsorsPreview.appendChild(sponsorCard);
+  });
+}
+
+// Sponsor Modal Handling
+const sponsorModal = document.getElementById("addSponsorModal");
+const closeSponsorBtn = sponsorModal.querySelector(".close");
+const sponsorForm = document.getElementById("sponsorForm");
+
+// Open sponsor modal
+addSponsorBtn.addEventListener("click", () => {
+  sponsorModal.style.display = "block";
+});
+
+// Close sponsor modal
+closeSponsorBtn.addEventListener("click", () => {
+  sponsorModal.style.display = "none";
+});
+
+// Handle sponsor form submission
+sponsorForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const sponsorData = {
+    id: Date.now(),
+    name: document.getElementById("sponsorName").value,
+    logo: URL.createObjectURL(document.getElementById("sponsorLogo").files[0]),
+    link: document.getElementById("sponsorLink").value || "#",
+    tier: document.getElementById("sponsorTier").value
+  };
+
+  const sponsors = JSON.parse(localStorage.getItem("sponsors")) || [];
+  sponsors.unshift(sponsorData); // Add new sponsor at beginning
+  localStorage.setItem("sponsors", JSON.stringify(sponsors));
+
+  // Refresh UI
+  sponsorForm.reset();
+  sponsorModal.style.display = "none";
+  loadSponsorsPreview();
+  
+  // Show success message
+  alert("Sponsor added successfully!");
+});
+
+// Keep all your existing post functionality exactly as is
+// ... [your existing post-related code remains unchanged] ...
