@@ -32,7 +32,7 @@ body {
   font-size: 1.2rem;
 }
 
-.dark-mode .no-products {
+.dark-mode.no-products {
   color: #aaa;
 }
 .navbar .container {
