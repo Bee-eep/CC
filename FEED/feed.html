@@ -620,15 +620,8 @@
      </footer>
     
 
-     <script>
-        // Inject navbar from common/navbar.html
-        fetch("/common/navbar.html")
-          .then(res => res.text())
-          .then(data => {
-            document.getElementById("navbar-container").innerHTML = data;
-          });
-      </script>
-      
+     <script src="../common/navbar.js"></script>
+
   <script src="feed.js"></script> 
 </body>
 </html>
