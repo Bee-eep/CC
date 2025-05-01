@@ -2,117 +2,195 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Our Sponsors</title>
-  <link rel="stylesheet" href="sponsor.css">
-  <link rel="stylesheet" href="../FEED/feed.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sponsors-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 40px;
+    }
+
+    .sponsors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .hexagon {
+      width: 200px;
+      height: 230px;
+      background: white;
+      position: relative;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .hexagon:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .hexagon-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .hexagon-logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .hexagon-name {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .hexagon-front {
+      transition: all 0.3s ease;
+    }
+
+    .hexagon-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      background: rgba(255,255,255,0.9);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      text-align: center;
+    }
+
+    .hexagon:hover .hexagon-front {
+      opacity: 0;
+    }
+
+    .hexagon:hover .hexagon-back {
+      opacity: 1;
+    }
+
+    .event-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .event-date, .event-club {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .event-club {
+      font-style: italic;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 20px;
+      background: #4a4a4a;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #333;
+    }
+
+    @media (max-width: 768px) {
+      .hexagon {
+        width: 160px;
+        height: 184px;
+      }
+      .hexagon-logo {
+        width: 80px;
+        height: 80px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="nav">
-    <div class="upper-nav">
-      <div class="left-sec">
-        <button class="hamburger">&#9776;</button>
-        <input type="text" placeholder="  Search...." name="search" class="search-box">
-        <button class="Search"><img src="Image/Search2.png" class="search-image"></button>
-      </div>
-      <div class="middle-sec">
-        <img src="Image/Logo10.jpg" class="Logo">
-      </div>
-      <div class="right-sec">
-        <img src="Image/Contact.png" class="contact">
-        <img src="Image/user2.png" class="User">
-      </div>
-    </div>
-    <div class="lower-nav" id="lowerNav">
-      <nav class="navbar">
-        <ul class="nav-links">
-          <li class="nav-link services"><a href="../FEED/feed.html">Home</a></li>
-          <li class="nav-link services"><a href="#">Tech</a></li>
-          <li class="nav-link services"><a href="#">Socio-Culture</a></li>
-          <li class="nav-link services"><a href="#">Games</a></li>
-          <li class="nav-link services"><a href="#">Creativity</a></li>
-          <li class="nav-link services"><a href="#">Others</a></li>
-          <li class="nav-link services"><a href="#">Health</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-
   <div class="sponsors-container">
-    <h1>Our Sponsors</h1>
-    <p class="subtitle">We're grateful to these organizations for their support</p>
-    
-    <div class="tier gold">
-      <h2><i class="fas fa-crown"></i> Gold Sponsors</h2>
-      <div class="sponsors-grid" id="goldSponsors"></div>
+    <h1><i class="fas fa-handshake"></i> Our Valued Sponsors</h1>
+    <div class="sponsors-grid" id="sponsorsGrid">
+      <!-- Sponsors will be loaded here by JavaScript -->
     </div>
-    
-    <div class="tier silver">
-      <h2><i class="fas fa-medal"></i> Silver Sponsors</h2>
-      <div class="sponsors-grid" id="silverSponsors"></div>
-    </div>
-    
-    <div class="tier bronze">
-      <h2><i class="fas fa-award"></i> Bronze Sponsors</h2>
-      <div class="sponsors-grid" id="bronzeSponsors"></div>
-    </div>
+    <a href="../FEED/feed.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
   </div>
 
-  <footer>
-    <div class="containers">
-      <div class="row">
-        <div class="col" id="company">
-          <img src="Image/Endlog.jpg" alt="" class="logo">
-          <p>Campus Connect is a platform fostering student engagement through events, collaborations, and information sharing, enhancing the collegiate experience.</p>
-          <div class="social">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-          </div>
-        </div>
-        <div class="col" id="services">
-          <h3>Clubs</h3>
-          <div class="links">
-            <a href="#">Tech</a>
-            <a href="#">Creativity</a>
-            <a href="#">Health</a>
-            <a href="#">Socio-Culture</a>
-          </div>
-        </div>
-        <div class="col" id="useful-links">
-          <h3>Links</h3>
-          <div class="links">
-            <a href="#">About</a>
-            <a href="#">Help</a>
-          </div>
-        </div>
-        <div class="col" id="contact">
-          <h3>Contact</h3>
-          <div class="contact-details">
-            <i class="fa fa-location"></i>
-            <p>Bennett University<br>Greater Noida, India</p>
-          </div>
-          <div class="contact-details">
-            <i class="fa fa-phone"></i>
-            <p>+91-92993883777</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form">
-          <form action="">
-            <input type="text" placeholder="Email here...">
-            <button><i class="fa fa-paper-plane"></i></button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sponsors = JSON.parse(localStorage.getItem('sponsors')) || [];
+      const grid = document.getElementById('sponsorsGrid');
 
-  <script src="sponsors.js"></script>
+      if (sponsors.length === 0) {
+        grid.innerHTML = '<p>No sponsors have been added yet</p>';
+        return;
+      }
+
+      sponsors.forEach(sponsor => {
+        const hexagon = document.createElement('div');
+        hexagon.className = 'hexagon';
+        hexagon.innerHTML = `
+          <div class="hexagon-content">
+            <div class="hexagon-front">
+              <img src="${sponsor.logo}" alt="${sponsor.name}" class="hexagon-logo">
+              <div class="hexagon-name">${sponsor.name}</div>
+            </div>
+            <div class="hexagon-back">
+              <div class="event-title">${sponsor.event || 'Sponsored Event'}</div>
+              <div class="event-date">${sponsor.date || 'Date not specified'}</div>
+              <div class="event-date">${sponsor.time || 'Time not specified'}</div>
+              <div class="event-club">Hosted by: ${sponsor.club || 'Various Clubs'}</div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(hexagon);
+      });
+    });
+  </script>
 </body>
 </html>

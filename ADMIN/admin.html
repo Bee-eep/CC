@@ -92,17 +92,7 @@
           <p>This is to inform that etc etc etc</p>
         </div>
       </div>
-      <div class="sponsors-preview">
-        <div class="Heads">
-          <b>Recent Sponsors <i class="fas fa-handshake"></i></b>
-        </div>
-        <div class="sponsors-grid" id="sponsorsPreview">
-          <!-- Sponsors will be loaded here -->
-        </div>
-        <div class="view-all">
-          <button onclick="window.location.href='sponsor.html'">View All Sponsors</button>
-        </div>
-      </div>
+
     </div>
   </div>
 
@@ -122,32 +112,85 @@
   </div>
 
   <!-- Modal for Adding Sponsors -->
-  <div id="addSponsorModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Add New Sponsor</h2>
-      <form id="sponsorForm">
-        <label for="sponsorName">Sponsor Name:</label>
-        <input type="text" id="sponsorName" placeholder="Enter sponsor name" required>
-        
-        <label for="sponsorLogo">Sponsor Logo:</label>
-        <input type="file" id="sponsorLogo" accept="image/*" required>
-        
-        <label for="sponsorLink">Website Link (optional):</label>
-        <input type="url" id="sponsorLink" placeholder="https://example.com">
-        
-        <label for="sponsorTier">Tier:</label>
-        <select id="sponsorTier" required>
-          <option value="gold">Gold</option>
-          <option value="silver">Silver</option>
-          <option value="bronze">Bronze</option>
-        </select>
-        
-        <button type="submit">Add Sponsor</button>
-      </form>
-    </div>
+<!-- In your admin.html, update the sponsor form -->
+<div id="addSponsorModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Add New Sponsor</h2>
+    <form id="sponsorForm">
+      <label for="sponsorName">Sponsor Name:</label>
+      <input type="text" id="sponsorName" placeholder="Enter sponsor name" required>
+      
+      <label for="sponsorLogo">Sponsor Logo:</label>
+      <input type="file" id="sponsorLogo" accept="image/*" required>
+      
+      <label for="sponsoredEvent">Sponsored Event:</label>
+      <input type="text" id="sponsoredEvent" placeholder="Event name">
+      
+      <div class="form-row">
+        <div>
+          <label for="eventDate">Date:</label>
+          <input type="date" id="eventDate">
+        </div>
+        <div>
+          <label for="eventTime">Time:</label>
+          <input type="time" id="eventTime">
+        </div>
+      </div>
+      
+      <label for="hostingClub">Hosting Club:</label>
+      <input type="text" id="hostingClub" placeholder="Club name">
+      
+      <label for="sponsorLink">Website Link (optional):</label>
+      <input type="url" id="sponsorLink" placeholder="https://example.com">
+      
+      <button type="submit">Add Sponsor</button>
+    </form>
   </div>
+</div>
 
+<style>
+  /* Add to admin.css */
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  .form-row > div {
+    flex: 1;
+  }
+</style>
+
+<script>
+  // Update sponsor form submission in admin.html
+  sponsorForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    const sponsorData = {
+      id: Date.now(),
+      name: document.getElementById("sponsorName").value,
+      logo: URL.createObjectURL(document.getElementById("sponsorLogo").files[0]),
+      event: document.getElementById("sponsoredEvent").value,
+      date: formatDate(document.getElementById("eventDate").value),
+      time: document.getElementById("eventTime").value,
+      club: document.getElementById("hostingClub").value,
+      link: document.getElementById("sponsorLink").value || "#"
+    };
+
+    const sponsors = JSON.parse(localStorage.getItem("sponsors")) || [];
+    sponsors.unshift(sponsorData);
+    localStorage.setItem("sponsors", JSON.stringify(sponsors));
+
+    sponsorForm.reset();
+    sponsorModal.style.display = "none";
+    alert("Sponsor added successfully!");
+  });
+
+  function formatDate(dateString) {
+    if (!dateString) return '';
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+  }
+</script>
   <footer>
     <div class="containers">
       <div class="row">
